@@ -4,9 +4,44 @@
 	<title></title>
 </head>
 <body>
-<section id='jobs'>
-	<button>List Jobs</button>
-</section>
+	<section id='jobs'>
+		<button>List Jobs</button>
+	</section>
+ <!-- form/template -->
+	
+	<table class="table">
+		<thead>
+			<tr>
+				<th>Job Name</th>
+				<th>Jobs Description</th>
+				<th>PickUp Location</th>
+				<th>Drop off Location</th>
+				<th>Time</th>
+			</tr>
+			<tr>
+				<td><input class="form-control jobName-input"></td>
+				<td><input class="form-control jobsDescription-input"></td>
+				<td><input class="form-control pickup-input"></td>
+				<td><input class="form-control dropOffLocation-input"></td>
+				<td><input class="form-control time-input"></td>
+				<td><button class="btn btn-primary addJob">Add</button></td>
+			</tr>
+		</thead>
+		<tbody class="jobsList"></tbody>
+	</table>
+
+
+<script type="text/template" id="tableRowView">
+	<tr>
+		<td><span class="jobDescription-input"><%- jobDescription %></span></td>
+		<td><span class="pickUpLocation-input"><%- pickUp %></span></td>
+		<td><span class="dropOffLocation-input"><%- dropOffLocation %></span></td>
+		<td><span class="time-input"><%- time %></span></td>
+		<td> <button class="acceptJob">accept</button></td>
+	</tr>
+</script>
+
+
 <script type="text/javascript" src="./scripts/bundle.js"></script>
 </body>
 </html>

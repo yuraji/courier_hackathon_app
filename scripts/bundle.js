@@ -12665,27 +12665,155 @@ return jQuery;
 var Backbone = require('backbone');
 var $ = require('jquery');
 var _ = require('backbone/node_modules/underscore');
+var JobsModel = require('../models/jobsModel.js');
 
 module.exports = Backbone.Collection.extend({
+	model: JobsModel, // Blueprint upper case first letter.
 	url: function url() {
 		return "https://iron-courier.herokuapp.com/users/1/jobs";
 	}
 });
 
-},{"backbone":1,"backbone/node_modules/underscore":2,"jquery":3}],5:[function(require,module,exports){
+},{"../models/jobsModel.js":7,"backbone":1,"backbone/node_modules/underscore":2,"jquery":3}],5:[function(require,module,exports){
+// use view for your form
 'use strict';
+
+var Backbone = require("backbone");
+var $ = require('jquery');
+var _ = require('backbone/node_modules/underscore');
+
+module.exports = Backbone.View.extend({
+  tagName: 'tr', // we'll be using table rows to collect info
+
+  initialize: function initialize() {
+    this.render();
+  },
+  template: _.template($("#tableRowView").html()),
+  events: {
+    'click': 'accepted'
+
+  },
+  accepted: function accepted() {
+    this.model.destroy();
+  },
+  remove: function remove() {
+    // we want to remove the job from the page once acceptJob is clicked
+    this.model.set({
+      incomplete: !this.model.get('incomplete')
+    });
+  },
+  render: function render() {
+    this.$el.html(this.template(this.model.toJSON()));
+
+    if (!this.model.get('incomplete')) {
+      this.$el.css('text-decoration', 'line-through');
+    } else {
+      this.$el.css('text-decoration', 'none');
+    }
+
+    return this;
+  }
+});
+
+},{"backbone":1,"backbone/node_modules/underscore":2,"jquery":3}],6:[function(require,module,exports){
+'use strict';
+
 var Backbone = require('backbone');
 var $ = require('jquery');
 var _ = require('backbone/node_modules/underscore');
 var JobsCollection = require('./collections/jobsCollection.js');
 var JobsView = require('./views/jobsView.js');
+var TableRow = require('./components/TableRowView');
+var JobsModel = require('./models/jobsModel');
+
+var jobCollectionA = new JobsCollection();
 
 $(document).ready(function () {
 
-  new JobsView();
+  // var jobModel = new JobsModel({
+  //     business_name: "jobCo",
+  //     location: "texas",
+  //     job_description: "we do things",
+  //     phone: "555-555-5555"
+  // })
+
+  $('.addJob').on('click', function () {
+
+    var model = new JobsModel({ // modelA is a made-up name. We're making a copy of blueprint for use here, so get name of Model Blueprint.
+
+      jobName: $('.jobName-input').val(),
+      jobDescription: $('.jobsDescription-input').val(),
+      pickUp: $('.pickup-input').val(),
+      dropOffLocation: $('.dropOffLocation-input').val(),
+      time: $('.time-input').val()
+    });
+    $('.jobName-input').val('');
+    $('.jobsDescription-input').val('');
+    $('.pickup-input').val('');
+    $('.dropOffLocation-input').val('');
+    $('.time-input').val('');
+
+    jobCollectionA.add(model); // replace with name of model here!!! Something adds to colection.
+  });
+
+  jobCollectionA.on('add', function (model) {
+
+    var template = _.template($("#tableRowView").html()); // we're in function...
+    var rowHtml = template(model.toJSON());
+    console.log(rowHtml);
+    $rowHtml.append(jobsList);
+  });
+
+  // function accepted() {
+  //   this.model.destroy();
+  // }
+
+  // function remove() {
+  //   this.model.set({
+  //     incomplete: !this.model.get('incomplete')
+  // }
+
+  // function render() {
+  //   this.$el.html(this.template(this.model.toJSON()));
+
+  //   if(!this.model.get('incomplete')) {
+  //     this.$el.css('text-decoration', 'line-through');
+  //   }
+  //   else {
+  //     this.$el.css('text-decoration', 'none');
+  //   }
+
+  //   return this;
+  // }
+
+  // var tableRow = new TableRow({model: jobModel});
+
+  // $("#job").append(tableRow.$el);
+
+  // new JobsView();
 });
 
-},{"./collections/jobsCollection.js":4,"./views/jobsView.js":6,"backbone":1,"backbone/node_modules/underscore":2,"jquery":3}],6:[function(require,module,exports){
+},{"./collections/jobsCollection.js":4,"./components/TableRowView":5,"./models/jobsModel":7,"./views/jobsView.js":8,"backbone":1,"backbone/node_modules/underscore":2,"jquery":3}],7:[function(require,module,exports){
+'use strict';
+
+var Backbone = require('backbone');
+var $ = require('jquery');
+var _ = require('backbone/node_modules/underscore');
+
+module.exports = Backbone.Model.extend({
+
+	defaults: {
+		jobName: '',
+		jobsDescription: '',
+		pickUp: '',
+		dropOffLocation: '',
+		time: ''
+	},
+	urlRoot: 'https://obscure-mountain-8449.herokuapp.com/users/1/jobs',
+	idAttribute: "_id"
+});
+
+},{"backbone":1,"backbone/node_modules/underscore":2,"jquery":3}],8:[function(require,module,exports){
 'use strict';
 
 var Backbone = require('backbone');
@@ -12726,7 +12854,7 @@ module.exports = Backbone.View.extend({
 
 });
 
-},{"../collections/jobsCollection.js":4,"backbone":1,"backbone/node_modules/underscore":2,"jquery":3}]},{},[5])
+},{"../collections/jobsCollection.js":4,"backbone":1,"backbone/node_modules/underscore":2,"jquery":3}]},{},[6])
 
 
 //# sourceMappingURL=bundle.js.map

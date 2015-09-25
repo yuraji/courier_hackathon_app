@@ -1,7 +1,7 @@
-
-// var x (ex jobView.js) = require(file path to view.js)
-// use x inside code.
+// use view for your form
 var Backbone = require("backbone");
+var $ = require('jquery');
+var _ = require('backbone/node_modules/underscore');
 
 module.exports = Backbone.View.extend({ 
    tagName: 'tr',  // we'll be using table rows to collect info
@@ -9,9 +9,9 @@ module.exports = Backbone.View.extend({
   initialize: function(){
     this.render();
   },
-  template: _.template(html($("#tableRowView").html()),
+  template: _.template($("#tableRowView").html()),
   events: {
-    'click': 'accepted';
+    'click': 'accepted'
 
   },
   accepted: function() {
