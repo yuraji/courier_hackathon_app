@@ -4,9 +4,20 @@
 	<title></title>
 </head>
 <body>
-<section id='jobs'>
-	<button>List Jobs</button>
+<section id='jobslist'>
+	<div id='jobs'></div>
 </section>
+<section>
+	<form id='jobSubmit'>
+		<input id="businessName" type="text" placeholder="business name">
+		<input id="location" type="text" placeholder="North, south, central, etc.">
+		<select id="jobDescription">
+			<option>Letter</option>
+			<option>Parcel</option>
+		</select>
+		<input id="phone" type="text" placeholder="Contact number">
+	</form>
+</section> 
 <script type="text/javascript" src="./scripts/bundle.js"></script>
 </body>
 </html>
