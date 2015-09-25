@@ -1,2 +1,4 @@
 /node_modules
 .DS_Store
+/scripts/bundle.js
+/scripts/bundle.js.map
