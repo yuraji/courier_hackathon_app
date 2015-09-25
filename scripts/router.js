@@ -1,36 +1,97 @@
-'use strict'; // include in html
+ 
+'use strict';  
 
 var Router = Backbone.Router.extend({
 	routes:{
+		'about':'aboutPage',
+		'index':'indexPage',
 		'logIn':'logInPage',
 		'signUp':'signUpPage',
-		'home':'homePage',
-		'user':'userPage',
-		'messenger':'messengerPage',
-		'messengerAcct':'messangerAccountPage',
-		'':'',
-		'job':'jobPage'
-	}, // commas seperate our object properties and values.
-	goloading: function(){ // need colon!
-	   $('.sections').hide();
-	   $('#loading').show();
+		'help':'helpPage',
+		'contact':'contactPage',
+		'contactSuccess':'contactSuccess',
+		'clientAccount':'clientAccount',
+		'clientService':'clientService',
+		'clientAccept':'clientAccept',
+		'clientServiceSuccess':'clientServiceSuccess',
+		'courierAccount':'courierAccount',
+		'courierService':'courierService',
+		'courierHired':'courierHired'
+		'experience':'experiencePage'
+		'forgot':'forgotPassword'
+		'PasswordSent':'passwordSent'
+	},
+
+	aboutPage: function(){ 
+	   $('#sections').hide();
+	   $('#aboutPage').show();
 	}, 
-	gomenu: function(){ 
+	indexPage: function(){ 
 	   $('.sections').hide();
-	   $('#menu').show();
+	   $('#indexPage').show();
 	},
-	gogame: function(){ 
+	LogInPage: function(){ 
 		$('.sections').hide();
-		$('#game').show();
+		$('#loginPage').show();
 	},
-	goleaderboard: function(){ // need colon!
+	signUpPage: function(){ 
 		$('.sections').hide();
-		$('#leaderboard').show();
+		$('#signUpPage').show();
 	},
-	gosettings: function(){ // need colon!
+	helpPage: function(){ 
 		$('.sections').hide();
-		$('#settings').show();
+		$('#helpPage').show();
 	}
+	contactPage: function(){ 
+	   $('.sections').hide();
+	   $('#contactPage').show();
+	},
+	contactSuccess: function(){ 
+		$('.sections').hide();
+		$('#contactSuccess').show();
+	},
+	clientAccount: function(){ 
+		$('.sections').hide();
+		$('#clientAccount').show();
+	},
+	clientService: function(){ 
+		$('.sections').hide();
+		$('#clientService').show();
+	}
+	clientAccept: function(){ 
+	   $('.sections').hide();
+	   $('#clientAccept').show();
+	},
+	clientServiceSuccess: function(){
+		$('.sections').hide();
+		$('#clientServiceSuccess').show();
+	},
+	courierAccount: function(){ 
+		$('.sections').hide();
+		$('#courierAccount').show();
+	},
+	courierService: function(){ 
+		$('.sections').hide();
+		$('#courierService').show();
+	},
+	courierHired: function(){ 
+		$('.sections').hide();
+		$('#courierHired').show();
+	},
+		},
+	experience: function(){ 
+		$('.sections').hide();
+		$('#experience').show();
+	},
+	forgotPassword: function(){  
+		$('.sections').hide();
+		$('#forgotPassword').show();
+	},
+	passwordSent: function(){  
+		$('.sections').hide();
+		$('#passwordSent').show();
+	}
+
 })
 
 var appRouter = new Router();
