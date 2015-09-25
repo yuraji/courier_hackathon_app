@@ -1,4 +1,18 @@
 'use strict';
+<<<<<<< HEAD
+var Backbone = require('backbone');
+var $ = require('jquery');
+var _ = require('backbone/node_modules/underscore');
+var JobsCollection = require('./collections/jobsCollection.js');
+var JobsView = require('./views/jobsView.js');
+
+$(document).ready(function() {
+
+
+
+new JobsView();
+})
+=======
 
 // in html we have 2 textboxes and button, register click event
 
@@ -59,3 +73,4 @@ $('#acceptButton').on('click', function() {
 
 
 
+>>>>>>> 33980f9ba8b5054ce88baf30290995b32d02bac2
