@@ -1,9 +1,8 @@
-
 var Backbone = require('backbone');
 var $ = require('jquery');
 var _ = require('backbone/node_modules/underscore');
 var JobsCollection = require('../collections/jobsCollection.js')
-var templateHTML = "<div><span><%= business_name %></span><span><%= location %></span><span><%= phone %></span><button>View Job</button></div>";
+var templateHTML = "<div><span><%= street_name %></span></div>";
 module.exports = Backbone.View.extend({
 
 	template: _.template(templateHTML),

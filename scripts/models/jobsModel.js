@@ -9,6 +9,10 @@ module.exports = Backbone.Model.extend({
 		location: '',
 		job_description: '',
 		phone: '',
+		street_name: '',
+		city: '',
+		state: '',
+		zip: '',
 	},
 	urlRoot : 'https://dispatch-atx.herokuapp.com/jobs',
 	idAttribute: "_id"
