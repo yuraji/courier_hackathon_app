@@ -12679,16 +12679,18 @@ var $ = require('jquery');
 var _ = require('backbone/node_modules/underscore');
 var JobsCollection = require('./collections/jobsCollection.js');
 var JobsView = require('./views/jobsView.js');
+var addressView = require('./views/addressView.js');
 var jobSubmitView = require('./views/jobSubmitView.js');
 $(document).ready(function () {
 
   setInterval(function () {
     new JobsView();
+    // new addressView();
   }, 4000);
   new jobSubmitView();
 });
 
-},{"./collections/jobsCollection.js":4,"./views/jobSubmitView.js":7,"./views/jobsView.js":8,"backbone":1,"backbone/node_modules/underscore":2,"jquery":3}],6:[function(require,module,exports){
+},{"./collections/jobsCollection.js":4,"./views/addressView.js":7,"./views/jobSubmitView.js":8,"./views/jobsView.js":9,"backbone":1,"backbone/node_modules/underscore":2,"jquery":3}],6:[function(require,module,exports){
 'use strict';
 
 var Backbone = require('backbone');
@@ -12701,13 +12703,60 @@ module.exports = Backbone.Model.extend({
 		business_name: '',
 		location: '',
 		job_description: '',
-		phone: ''
+		phone: '',
+		street_name: '',
+		city: '',
+		state: '',
+		zip: ''
 	},
 	urlRoot: 'https://dispatch-atx.herokuapp.com/jobs',
 	idAttribute: "_id"
 });
 
 },{"backbone":1,"backbone/node_modules/underscore":2,"jquery":3}],7:[function(require,module,exports){
+'use strict';
+
+var Backbone = require('backbone');
+var $ = require('jquery');
+var _ = require('backbone/node_modules/underscore');
+var JobsCollection = require('../collections/jobsCollection.js');
+var templateHTML = "<div><span><%= street_name %></span></div>";
+module.exports = Backbone.View.extend({
+
+	template: _.template(templateHTML),
+
+	el: $('#jobs'),
+
+	initialize: function initialize(options) {
+		this.collection = new JobsCollection();
+
+		// save view context
+		var that = this;
+
+		this.collection.fetch({
+			success: function success(collection, response, options) {
+
+				that.render();
+			},
+			error: function error() {
+				alert("booboo");
+			}
+		});
+	},
+
+	render: function render() {
+		this.$el.html("");
+		// var data = this.collection.toJSON();
+		var that = this;
+		this.collection.each(function (model) {
+			var html = that.template(model.toJSON());
+			that.$el.append(html);
+		});
+	}
+
+});
+
+},{"../collections/jobsCollection.js":4,"backbone":1,"backbone/node_modules/underscore":2,"jquery":3}],8:[function(require,module,exports){
 'use strict';
 
 var Backbone = require('backbone');
@@ -12743,14 +12792,14 @@ module.exports = Backbone.View.extend({
     }
 });
 
-},{"../models/jobsModel.js":6,"backbone":1,"backbone/node_modules/underscore":2,"jquery":3}],8:[function(require,module,exports){
+},{"../models/jobsModel.js":6,"backbone":1,"backbone/node_modules/underscore":2,"jquery":3}],9:[function(require,module,exports){
 'use strict';
 
 var Backbone = require('backbone');
 var $ = require('jquery');
 var _ = require('backbone/node_modules/underscore');
 var JobsCollection = require('../collections/jobsCollection.js');
-var templateHTML = "<div><span><%= business_name %></span><span><%= location %></span></div>";
+var templateHTML = "<div><span><%= business_name %></span><span><%= location %></span><span><%= phone %></span><button>View Job</button></div>";
 module.exports = Backbone.View.extend({
 
 	template: _.template(templateHTML),
@@ -12779,7 +12828,6 @@ module.exports = Backbone.View.extend({
 		// var data = this.collection.toJSON();
 		var that = this;
 		this.collection.each(function (model) {
-			// var that = this;
 			var html = that.template(model.toJSON());
 			that.$el.append(html);
 		});
