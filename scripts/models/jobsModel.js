@@ -10,6 +10,6 @@ module.exports = Backbone.Model.extend({
 		job_description: '',
 		phone: '',
 	},
-	urlRoot : 'https://obscure-mountain-8449.herokuapp.com/users/1/jobs',
+	urlRoot : 'https://iron-courier.herokuapp.com/jobs',
 	idAttribute: "_id"
 });

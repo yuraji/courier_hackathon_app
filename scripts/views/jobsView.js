@@ -18,7 +18,8 @@ module.exports = Backbone.View.extend({
 
 		this.collection.fetch({
 			success: function (collection, response, options) {
-				that.render();
+				
+					that.render();
 			},
 			error: function () {
 				alert("booboo");
@@ -28,14 +29,16 @@ module.exports = Backbone.View.extend({
 	},
 
 	render: function () {
+		this.$el.html("");
 		// var data = this.collection.toJSON();
 		var that = this;
-		this.collection.each( function (model) {
+		this.collection.each(function (model) {
+			// var that = this;
 			var html = that.template(model.toJSON());
 			that.$el.append(html);
 		});
 
-	}
+	},
 
 	
-});
+})
