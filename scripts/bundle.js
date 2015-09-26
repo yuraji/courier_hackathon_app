@@ -12668,7 +12668,7 @@ var _ = require('backbone/node_modules/underscore');
 
 module.exports = Backbone.Collection.extend({
 	url: function url() {
-		return "https://iron-courier.herokuapp.com/users/1/jobs";
+		return "https://iron-courier.herokuapp.com/jobs";
 	}
 });
 
@@ -12679,13 +12679,72 @@ var $ = require('jquery');
 var _ = require('backbone/node_modules/underscore');
 var JobsCollection = require('./collections/jobsCollection.js');
 var JobsView = require('./views/jobsView.js');
-
+var jobSubmitView = require('./views/jobSubmitView.js');
 $(document).ready(function () {
 
-  new JobsView();
+  setInterval(function () {
+    new JobsView();
+  }, 4000);
+  new jobSubmitView();
 });
 
-},{"./collections/jobsCollection.js":4,"./views/jobsView.js":6,"backbone":1,"backbone/node_modules/underscore":2,"jquery":3}],6:[function(require,module,exports){
+},{"./collections/jobsCollection.js":4,"./views/jobSubmitView.js":7,"./views/jobsView.js":8,"backbone":1,"backbone/node_modules/underscore":2,"jquery":3}],6:[function(require,module,exports){
+'use strict';
+
+var Backbone = require('backbone');
+var $ = require('jquery');
+var _ = require('backbone/node_modules/underscore');
+
+module.exports = Backbone.Model.extend({
+
+	defaults: {
+		business_name: '',
+		location: '',
+		job_description: '',
+		phone: ''
+	},
+	urlRoot: 'https://iron-courier.herokuapp.com/jobs',
+	idAttribute: "_id"
+});
+
+},{"backbone":1,"backbone/node_modules/underscore":2,"jquery":3}],7:[function(require,module,exports){
+'use strict';
+
+var Backbone = require('backbone');
+var $ = require('jquery');
+var _ = require('backbone/node_modules/underscore');
+var jobsModel = require('../models/jobsModel.js');
+
+module.exports = Backbone.View.extend({
+
+    el: $('#jobSubmit'),
+    initialize: function initialize(options) {
+        this.model = new jobsModel();
+
+        var that = this;
+        console.log(this.el);
+        this.$el.submit(function (e) {
+            e.preventDefault();
+            that.model.save({
+                business_name: $('#businessName').val(),
+                location: $('#location').val(),
+                job_description: $('#jobDescription'),
+                phone: $('#phone')
+            });
+        });
+    }
+});
+// render: function() {
+//     // var data = this.collection.toJSON();
+//     var that = this;
+//     this.collection.each(function(model) {
+//         var html = that.template(model.toJSON());
+//         that.$el.append(html);
+//     });
+
+// }
+
+},{"../models/jobsModel.js":6,"backbone":1,"backbone/node_modules/underscore":2,"jquery":3}],8:[function(require,module,exports){
 'use strict';
 
 var Backbone = require('backbone');
@@ -12707,6 +12766,7 @@ module.exports = Backbone.View.extend({
 
 		this.collection.fetch({
 			success: function success(collection, response, options) {
+
 				that.render();
 			},
 			error: function error() {
@@ -12716,9 +12776,11 @@ module.exports = Backbone.View.extend({
 	},
 
 	render: function render() {
+		this.$el.html("");
 		// var data = this.collection.toJSON();
 		var that = this;
 		this.collection.each(function (model) {
+			// var that = this;
 			var html = that.template(model.toJSON());
 			that.$el.append(html);
 		});
