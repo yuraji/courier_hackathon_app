@@ -4,44 +4,80 @@
 	<title></title>
 </head>
 <body>
-	<section id='jobs'>
-		<button>List Jobs</button>
+
+	<section id="jobSubmitPage">
+		<input name="businessName" id="businessName-input" type="text" placeholder="business/client name" />
+		<input name="location" id="location-input" type="text" placeholder="address" />
+		<input name="jobDescription" id="jobDescription-input" type="text" placeholder="job description" />
+		<input name="jobPhone" id="jobPhone-input" type="text" placeholder="phone #" />
+		<button id="btn btn-jobSubmit" type="button">Submit</button>
 	</section>
- <!-- form/template -->
-	
-	<table class="table">
-		<thead>
-			<tr>
-				<th>Job Name</th>
-				<th>Jobs Description</th>
-				<th>PickUp Location</th>
-				<th>Drop off Location</th>
-				<th>Time</th>
-			</tr>
-			<tr>
-				<td><input class="form-control jobName-input"></td>
-				<td><input class="form-control jobsDescription-input"></td>
-				<td><input class="form-control pickup-input"></td>
-				<td><input class="form-control dropOffLocation-input"></td>
-				<td><input class="form-control time-input"></td>
-				<td><button class="btn btn-primary addJob">Add</button></td>
-			</tr>
-		</thead>
-		<tbody class="jobsList"></tbody>
-	</table>
 
 
-<script type="text/template" id="tableRowView">
-	<tr>
-		<td><span class="jobDescription-input"><%- jobDescription %></span></td>
-		<td><span class="pickUpLocation-input"><%- pickUp %></span></td>
-		<td><span class="dropOffLocation-input"><%- dropOffLocation %></span></td>
-		<td><span class="time-input"><%- time %></span></td>
-		<td> <button class="acceptJob">accept</button></td>
-	</tr>
-</script>
+
+	<section id="businessLoginPage">
+		<input name="clientUserName" id="clientUserName-input" />
+		<input name="clientPassword" id="clientPassword-input" />
+		<button id="btn clientLogInBtn" type="button">Login</button>
+	</section>
 
 
-<script type="text/javascript" src="./scripts/bundle.js"></script>
+
+	<section id="landingPage">
+		<button id="btn clientLoginLink" type="button">Client</button>
+		<button id="btn courierLoginLink" type="button">Courier</button>
+		<a href="#aboutPage">About</a>
+		<a href="#contactPage">Contact</a>
+		<a href="#helpPage">Help</a>
+	</section>
+
+
+
+	<section id="clientlogInPage">
+		<input name="courierUserName" id="courierUserName-input" />
+		<input name="courierPassword" id="courierPassword-input" />
+		<button id="btn courierLogInBtn" type="button">Login</button>
+	</section>
+
+
+
+	<section id="clientAccountPage">
+		<div id="btn cancelJobBtn"></div><button id="btn cancelJob" type="button">Cancel Job</button>
+	</section>
+
+
+
+	<section id="courierAccountPage">
+		<div id="btn declineJobBtn"></div><button id="btn declineJob" type="button">Decline</button>
+	</section>
+
+
+
+	<section id="jobDetails">
+		<div id="jobsDisplayArea"></div>
+		<button id="btn acceptJobBtn" type="button">Login</button>
+		<button id="btn backToJobsListBtn" type="button">Login</button>
+	</section>
+
+
+<section id='jobslist'>
+	<ul id='jobs'></ul>
+</section>
+<section>
+	<form id='jobSubmit'>
+		<input name="userID" id="userID" type="text" placeholder="userID">
+		<input name="businessName" id="businessName" type="text" placeholder="business name">
+		<input name="location" id="location" type="text" placeholder="North, south, central, etc.">
+		<select name="jobDescription" id="jobDescription">
+			<option>Letter</option>
+			<option>Parcel</option>
+		</select>
+		<input name="phone" id="phone" type="text" placeholder="Contact number">
+		<button>Post Job</button>
+	</form>
+</section> 
+
+ <script type="text/javascript" src="./scripts/bundle.js"></script> 
+
 </body>
 </html>

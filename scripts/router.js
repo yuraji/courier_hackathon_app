@@ -3,93 +3,57 @@
 
 var Router = Backbone.Router.extend({
 	routes:{
-		'about':'aboutPage',
-		'index':'indexPage',
-		'logIn':'logInPage',
-		'signUp':'signUpPage',
+		'jobSubmit':'jobSubmitPage',
+		'businessLogin':'businessLoginPage',
+		'landingPage':'landingPage',
+		'clientlogInPage':'clientlogInPage',
+		'clientAccountPage':'clientAccountPage',
+		'courierAccountPage':'courierAccountPage',
+		'jobDetails':'jobDetails',
+		'jobslist':'jobslist',
 		'help':'helpPage',
-		'contact':'contactPage',
-		'contactSuccess':'contactSuccess',
-		'clientAccount':'clientAccount',
-		'clientService':'clientService',
-		'clientAccept':'clientAccept',
-		'clientServiceSuccess':'clientServiceSuccess',
-		'courierAccount':'courierAccount',
-		'courierService':'courierService',
-		'courierHired':'courierHired'
-		'experience':'experiencePage'
-		'forgot':'forgotPassword'
-		'PasswordSent':'passwordSent'
+		'contact':'contactPage'
 	},
 
 	aboutPage: function(){ 
 	   $('#sections').hide();
-	   $('#aboutPage').show();
+	   $('#jobSubmitPage').show();
 	}, 
 	indexPage: function(){ 
 	   $('.sections').hide();
-	   $('#indexPage').show();
+	   $('#businessLoginPage').show();
 	},
 	LogInPage: function(){ 
 		$('.sections').hide();
-		$('#loginPage').show();
+		$('#landingPage').show();
 	},
 	signUpPage: function(){ 
 		$('.sections').hide();
-		$('#signUpPage').show();
+		$('#clientlogInPage').show();
 	},
 	helpPage: function(){ 
 		$('.sections').hide();
-		$('#helpPage').show();
+		$('#clientAccountPage').show();
 	}
 	contactPage: function(){ 
 	   $('.sections').hide();
-	   $('#contactPage').show();
+	   $('#courierAccountPage').show();
 	},
 	contactSuccess: function(){ 
 		$('.sections').hide();
-		$('#contactSuccess').show();
+		$('#jobDetails').show();
 	},
 	clientAccount: function(){ 
 		$('.sections').hide();
-		$('#clientAccount').show();
+		$('#jobslist').show();
 	},
 	clientService: function(){ 
 		$('.sections').hide();
-		$('#clientService').show();
+		$('#helpPage').show();
 	}
 	clientAccept: function(){ 
 	   $('.sections').hide();
-	   $('#clientAccept').show();
-	},
-	clientServiceSuccess: function(){
-		$('.sections').hide();
-		$('#clientServiceSuccess').show();
-	},
-	courierAccount: function(){ 
-		$('.sections').hide();
-		$('#courierAccount').show();
-	},
-	courierService: function(){ 
-		$('.sections').hide();
-		$('#courierService').show();
-	},
-	courierHired: function(){ 
-		$('.sections').hide();
-		$('#courierHired').show();
-	},
-		},
-	experience: function(){ 
-		$('.sections').hide();
-		$('#experience').show();
-	},
-	forgotPassword: function(){  
-		$('.sections').hide();
-		$('#forgotPassword').show();
-	},
-	passwordSent: function(){  
-		$('.sections').hide();
-		$('#passwordSent').show();
+	   $('#contactPage').show();
 	}
 
 })
