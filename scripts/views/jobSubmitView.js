@@ -21,13 +21,13 @@ module.exports = Backbone.View.extend({
                             });
                         });
                     },
-                    // render: function() {
-                    //     // var data = this.collection.toJSON();
-                    //     var that = this;
-                    //     this.collection.each(function(model) {
-                    //         var html = that.template(model.toJSON());
-                    //         that.$el.append(html);
-                    //     });
+                    render: function() {
+                        // var data = this.collection.toJSON();
+                        var that = this;
+                        this.collection.each(function(model) {
+                            var html = that.template(model.toJSON());
+                            that.$el.append(html);
+                        });
 
-                    // }
+                    }
             });
