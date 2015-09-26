@@ -4,6 +4,6 @@ var _ = require('backbone/node_modules/underscore');
 
 module.exports = Backbone.Collection.extend({
 	url: function url() {
-		return "https://iron-courier.herokuapp.com/jobs";
+		return "https://dispatch-atx.herokuapp.com/jobs";
 	}
 });

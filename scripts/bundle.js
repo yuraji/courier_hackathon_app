@@ -12668,7 +12668,7 @@ var _ = require('backbone/node_modules/underscore');
 
 module.exports = Backbone.Collection.extend({
 	url: function url() {
-		return "https://iron-courier.herokuapp.com/jobs";
+		return "https://dispatch-atx.herokuapp.com/jobs";
 	}
 });
 
@@ -12703,7 +12703,7 @@ module.exports = Backbone.Model.extend({
 		job_description: '',
 		phone: ''
 	},
-	urlRoot: 'https://iron-courier.herokuapp.com/jobs',
+	urlRoot: 'https://dispatch-atx.herokuapp.com/jobs',
 	idAttribute: "_id"
 });
 
@@ -12732,17 +12732,16 @@ module.exports = Backbone.View.extend({
                 phone: $('#phone')
             });
         });
+    },
+    render: function render() {
+        // var data = this.collection.toJSON();
+        var that = this;
+        this.collection.each(function (model) {
+            var html = that.template(model.toJSON());
+            that.$el.append(html);
+        });
     }
 });
-// render: function() {
-//     // var data = this.collection.toJSON();
-//     var that = this;
-//     this.collection.each(function(model) {
-//         var html = that.template(model.toJSON());
-//         that.$el.append(html);
-//     });
-
-// }
 
 },{"../models/jobsModel.js":6,"backbone":1,"backbone/node_modules/underscore":2,"jquery":3}],8:[function(require,module,exports){
 'use strict';
