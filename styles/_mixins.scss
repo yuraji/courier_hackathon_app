@@ -1,0 +1,15 @@
+@mixin courier($wide, $clear, $pad, $margin...){
+	width: $wide;
+	clear: $clear;
+	padding: $pad;
+	margin: $margin;
+}
+
+@mixin twoborderbtn($tall, $wide, $margin, $pad, $radius, $border...){
+	height: $tall;
+	width: $wide;
+	margin: $margin;
+	padding: $pad;
+	border-radius: $radius;
+	border: $border;
+}
