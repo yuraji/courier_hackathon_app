@@ -80,9 +80,39 @@
 			<option>Parcel</option>
 		</select>
 		<input id="phone" type="text" placeholder="Contact number">
-		<button>Post Job</button>
+		<button type="submit">Post Job</button>
 	</form>
 </section> 
+
+
+    <section id="businessLoginPage">
+        <input name="clientUserName" id="clientUserName-input" />
+        <input name="clientPassword" id="clientPassword-input" />
+        <button id="btn clientLogInBtn" type="button">Login</button>
+    </section>
+
+    <section id="clientlogInPage">
+        <input name="courierUserName" id="courierUserName-input" />
+        <input name="courierPassword" id="courierPassword-input" />
+        <button id="btn courierLogInBtn" type="button">Login</button>
+    </section>
+	<section id="courierAccountPage">
+        <button id="btn declineJob" type="button">Decline</button>
+        <button id="btn finished">Job completed</button>
+    </section>
+
+
+    <section id="jobDetails">
+        <div id="jobsDisplayArea">
+            <table>
+                <tr></tr>
+            </table>
+            <tbody></tbody>
+        </div>
+        <button id="btn acceptJobBtn" type="button">Accept</button>
+        <button id="btn backToJobsListBtn" type="button">Go back</button>
+    </section>
+
 <script type="text/javascript" src="./scripts/bundle.js"></script>
 </body>
 </html>

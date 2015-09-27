@@ -2,43 +2,16 @@
 var Backbone = require('backbone');
 var $ = require('jquery');
 var _ = require('backbone/node_modules/underscore');
-var JobsCollection = require('../collections/jobsCollection.js')
-var templateHTML = "<div><span><%= business_name %></span><span><%= location %></span></div>";
+var templateHTML = "<div><span><%= business_name %></span><span><%= location %></span><span><%= phone %><span><button>View Job</button></div>";
 module.exports = Backbone.View.extend({
-
+	tagName:"section",
 	template: _.template(templateHTML),
-	
-	el: $('#jobs'),
-
 	initialize: function (options) {
-		this.collection = new JobsCollection();
-		
-		// save view context
-		var that = this;
-
-		this.collection.fetch({
-			success: function (collection, response, options) {
-				
-					that.render();
-			},
-			error: function () {
-				alert("booboo");
-			}
-		});
-		
+		this.render();
 	},
-
 	render: function () {
-		this.$el.html("");
-		// var data = this.collection.toJSON();
-		var that = this;
-		this.collection.each(function (model) {
-			// var that = this;
-			var html = that.template(model.toJSON());
-			that.$el.append(html);
-		});
-
-	},
-
-	
+		var html = this.template(this.model.toJSON());
+		this.$el.append(html);
+		return this;
+	},	
 })

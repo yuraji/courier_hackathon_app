@@ -12679,16 +12679,121 @@ var $ = require('jquery');
 var _ = require('backbone/node_modules/underscore');
 var JobsCollection = require('./collections/jobsCollection.js');
 var JobsView = require('./views/jobsView.js');
+var addressView = require('./views/addressView.js');
 var jobSubmitView = require('./views/jobSubmitView.js');
+var jobCollection = new JobsCollection();
 $(document).ready(function () {
 
-  setInterval(function () {
-    new JobsView();
-  }, 4000);
-  new jobSubmitView();
+    var Router = Backbone.Router.extend({
+        routes: {
+            'jobSubmit': 'jobSubmitPage',
+            'businessLogin': 'businessLoginPage',
+            'landingPage': 'landingPage',
+            'clientLogInPage': 'clientLogInPage',
+            'clientAccountPage': 'clientAccountPage',
+            'courierAccountPage': 'courierAccountPage',
+            'jobDetails': 'jobDetails',
+            'jobslist': 'jobslist',
+            'help': 'helpPage',
+            'contact': 'contactPage'
+        },
+
+        jobSubmit: function jobSubmit() {
+            $('section').hide();
+            $('#jobSubmitPage').show();
+        },
+        businessLogin: function businessLogin() {
+            $('section').hide();
+            $('#businessLoginPage').show();
+        },
+        landingPage: function landingPage() {
+            $('section').hide();
+            $('#landingPage').show();
+        },
+        clientLogInPage: function clientLogInPage() {
+            $('section').hide();
+            $('#clientLogInPage').show();
+        },
+        clientAccountPage: function clientAccountPage() {
+            $('section').hide();
+            $('#clientAccountPage').show();
+        },
+        courierAccountPage: function courierAccountPage() {
+            $('section').hide();
+            $('#courierAccountPage').show();
+        },
+        jobDetails: function jobDetails() {
+            $('section').hide();
+            $('#jobDetails').show();
+            loadJobsDetailView();
+        },
+        jobsList: function jobsList() {
+            $('section').hide();
+            $('#jobsList').show();
+        },
+        help: function help() {
+            $('section').hide();
+            $('#helpPage').show();
+        },
+        contact: function contact() {
+            $('section').hide();
+            $('#contactPage').show();
+            var contactPage = new contactPage();
+        }
+
+    });
+    function loadJobsDetailView() {
+
+        this.collection = new JobsCollection();
+        this.colelction.fetch();
+        _.each(this.collection, function (job) {
+            var jobsDetails = new jobsDetailsView({ model: job });
+        });
+    }
+
+    var appRouter = new Router();
+    Backbone.history.start();
+
+    $('#jobSubmit').submit(function (e) {
+        e.preventDefault();
+        console.log($('#businessName').val());
+        $.post("https://dispatch-atx.herokuapp.com/jobs", {
+            business_name: $('#businessName').val(),
+            location: $('#location').val(),
+            job_description: $('#jobDescription').val(),
+            phone: $('#phone').val()
+        }).done(function (res) {
+            jobCollection.add(res);
+        });
+    });
+    // $.ajax({
+    //    type: "POST",
+    //    url: "https://dispatch-atx.herokuapp.com/jobs",
+    //    data: {
+    //        business_name: $('#businessName').val(),
+    //        location: $('#location').val(),
+    //        job_description: $('#jobDescription').val(),
+    //        phone: $('#phone'),
+    //    },
+    //    success: function(res){
+    //      console.log(res);
+    //    },
+    //    dataType: "json"
+    //  });
+
+    jobCollection.fetch();
+    jobCollection.on("add", function (model) {
+        var jobView = new JobsView({ model: model });
+        $("#jobs").append(jobView.$el);
+    });
+    //new JobsView();
+    // setInterval(function(){
+    //   new JobsView();
+    //   // new addressView();
+    // },4000);
 });
 
-},{"./collections/jobsCollection.js":4,"./views/jobSubmitView.js":7,"./views/jobsView.js":8,"backbone":1,"backbone/node_modules/underscore":2,"jquery":3}],6:[function(require,module,exports){
+},{"./collections/jobsCollection.js":4,"./views/addressView.js":7,"./views/jobSubmitView.js":8,"./views/jobsView.js":9,"backbone":1,"backbone/node_modules/underscore":2,"jquery":3}],6:[function(require,module,exports){
 'use strict';
 
 var Backbone = require('backbone');
@@ -12701,7 +12806,11 @@ module.exports = Backbone.Model.extend({
 		business_name: '',
 		location: '',
 		job_description: '',
-		phone: ''
+		phone: '',
+		street_name: '',
+		city: '',
+		state: '',
+		zip: ''
 	},
 	urlRoot: 'https://dispatch-atx.herokuapp.com/jobs',
 	idAttribute: "_id"
@@ -12713,44 +12822,8 @@ module.exports = Backbone.Model.extend({
 var Backbone = require('backbone');
 var $ = require('jquery');
 var _ = require('backbone/node_modules/underscore');
-var jobsModel = require('../models/jobsModel.js');
-
-module.exports = Backbone.View.extend({
-
-    el: $('#jobSubmit'),
-    initialize: function initialize(options) {
-        this.model = new jobsModel();
-
-        var that = this;
-        console.log(this.el);
-        this.$el.submit(function (e) {
-            e.preventDefault();
-            that.model.save({
-                business_name: $('#businessName').val(),
-                location: $('#location').val(),
-                job_description: $('#jobDescription'),
-                phone: $('#phone')
-            });
-        });
-    },
-    render: function render() {
-        // var data = this.collection.toJSON();
-        var that = this;
-        this.collection.each(function (model) {
-            var html = that.template(model.toJSON());
-            that.$el.append(html);
-        });
-    }
-});
-
-},{"../models/jobsModel.js":6,"backbone":1,"backbone/node_modules/underscore":2,"jquery":3}],8:[function(require,module,exports){
-'use strict';
-
-var Backbone = require('backbone');
-var $ = require('jquery');
-var _ = require('backbone/node_modules/underscore');
 var JobsCollection = require('../collections/jobsCollection.js');
-var templateHTML = "<div><span><%= business_name %></span><span><%= location %></span></div>";
+var templateHTML = "<div><span><%= street_name %></span></div>";
 module.exports = Backbone.View.extend({
 
 	template: _.template(templateHTML),
@@ -12779,7 +12852,6 @@ module.exports = Backbone.View.extend({
 		// var data = this.collection.toJSON();
 		var that = this;
 		this.collection.each(function (model) {
-			// var that = this;
 			var html = that.template(model.toJSON());
 			that.$el.append(html);
 		});
@@ -12787,7 +12859,54 @@ module.exports = Backbone.View.extend({
 
 });
 
-},{"../collections/jobsCollection.js":4,"backbone":1,"backbone/node_modules/underscore":2,"jquery":3}]},{},[5])
+},{"../collections/jobsCollection.js":4,"backbone":1,"backbone/node_modules/underscore":2,"jquery":3}],8:[function(require,module,exports){
+'use strict';
+
+var Backbone = require('backbone');
+var $ = require('jquery');
+var _ = require('backbone/node_modules/underscore');
+var jobsModel = require('../models/jobsModel.js');
+
+module.exports = Backbone.View.extend({
+
+    // initialize: function(options) {
+    //     this.model = new jobsModel();
+
+    //     var that = this;
+    //     console.log(this.el);       
+    // },
+    // render: function() {
+    //     // var data = this.collection.toJSON();
+    //     var that = this;
+    //     this.collection.each(function(model) {
+    //         var html = that.template(model.toJSON());
+    //         that.$el.append(html);
+    //     });
+    // }
+
+});
+
+},{"../models/jobsModel.js":6,"backbone":1,"backbone/node_modules/underscore":2,"jquery":3}],9:[function(require,module,exports){
+'use strict';
+
+var Backbone = require('backbone');
+var $ = require('jquery');
+var _ = require('backbone/node_modules/underscore');
+var templateHTML = "<div><span><%= business_name %></span><span><%= location %></span><span><%= phone %><span><button>View Job</button></div>";
+module.exports = Backbone.View.extend({
+	tagName: "section",
+	template: _.template(templateHTML),
+	initialize: function initialize(options) {
+		this.render();
+	},
+	render: function render() {
+		var html = this.template(this.model.toJSON());
+		this.$el.append(html);
+		return this;
+	}
+});
+
+},{"backbone":1,"backbone/node_modules/underscore":2,"jquery":3}]},{},[5])
 
 
 //# sourceMappingURL=bundle.js.map

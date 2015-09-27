@@ -148,6 +148,44 @@ br {
 	}
 }
 
+.logoLockupIndex {
+	margin: -72px 0 6px 5%;
+}
+
+.logoLockup {
+	margin: -72px 0 6px 0;
+}
+
+.viewscreen {
+	border: 3.73px solid $primary-color;
+	border-radius: 9px;
+	height: 480px;
+	clear: left;
+	margin-top: 36px;
+	padding: 0;
+	.map {
+		height: 360px;
+		background-color: #9A9A9A;
+		margin: 5px 4px 0 4px;
+		border-radius: 7px 7px 0 0;
+		padding: 0 5px 5px 0;
+		box-sizing: border-box;
+	}
+		iframe {
+			height: 100%;
+			width: 100%;
+			border-radius: 7px 7px 0 0;
+		}
+	.trackingFeed{
+		height: 110px;
+		background-color: $secondary-dark;
+		margin: 0 4px 0 4px;
+		border-radius: 0 0 7px 7px;
+		padding: 5px 0 5px 0;
+		box-sizing: border-box;
+	}
+}
+
 .buttons {
 	margin: 16px auto;
 	.buttonClient, .buttonCourier {
