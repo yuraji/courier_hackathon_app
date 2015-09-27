@@ -9,6 +9,75 @@ var jobSubmitView = require('./views/jobSubmitView.js');
 var jobCollection = new JobsCollection();
 $(document).ready(function() {
 
+var Router = Backbone.Router.extend({
+    routes:{
+        'jobSubmit':'jobSubmitPage',
+        'businessLogin':'businessLoginPage',
+        'landingPage':'landingPage',
+        'clientLogInPage':'clientLogInPage',
+        'clientAccountPage':'clientAccountPage',
+        'courierAccountPage':'courierAccountPage',
+        'jobDetails':'jobDetails',
+        'jobslist':'jobslist',
+        'help':'helpPage',
+        'contact':'contactPage'
+    },
+
+    jobSubmit: function(){ 
+       $('section').hide();
+       $('#jobSubmitPage').show();
+    }, 
+    businessLogin: function(){ 
+       $('section').hide();
+       $('#businessLoginPage').show();
+    },
+    landingPage: function(){ 
+        $('section').hide();
+        $('#landingPage').show();
+    },
+    clientLogInPage: function(){ 
+        $('section').hide();
+        $('#clientLogInPage').show();
+    },
+    clientAccountPage: function(){ 
+        $('section').hide();
+        $('#clientAccountPage').show();
+    },
+    courierAccountPage: function(){ 
+       $('section').hide();
+       $('#courierAccountPage').show();
+    },
+    jobDetails: function(){ 
+        $('section').hide();
+        $('#jobDetails').show();
+        loadJobsDetailView()
+    },
+    jobsList: function(){ 
+        $('section').hide();
+        $('#jobsList').show();
+    },
+    help: function(){ 
+        $('section').hide();
+        $('#helpPage').show();
+    },
+    contact: function(){ 
+       $('section').hide();
+       $('#contactPage').show();
+       var contactPage = new contactPage();
+    }
+
+})
+function loadJobsDetailView(){
+    
+    this.collection = new JobsCollection();
+    this.collection.fetch();
+    _.each(this.collection, function(job){
+    var jobsDetails = new jobsDetailsView({model:job});
+        })
+}
+
+var appRouter = new Router();
+Backbone.history.start();
 
 $('#jobSubmit').submit(function(e) {
   e.preventDefault();
