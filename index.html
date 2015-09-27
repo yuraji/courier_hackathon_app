@@ -2,14 +2,26 @@
 <html>
 <head>
 	<title>DISPATCH</title>
-    <link type="text/css" rel="stylesheet" href="css/style.css">
-    <link type="text/css" rel="stylesheet" href="css/normalize.css">
-    <script src="https://use.typekit.net/ijd6zsm.js"></script>
-    <script>try{Typekit.load({ async: true });}catch(e){}</script>
+    <link href='https://fonts.googleapis.com/css?family=Oswald:400,700|Roboto+Condensed:400,700italic,300,400italic,300italic' rel='stylesheet' type='text/css'>
+    <link type="text/css" rel="stylesheet" href="styles/main.css">
+    <link type="text/css" rel="stylesheet" href="styles/normalize.css">
 </head>
 <body>
 <section id='landingPage'>
-	<nav id="nav-bar">
+	<nav id="navBar">
+		<div class="mobileNav">
+			<div class="menuBtn" id="menuBtn">
+				<div></div>
+				<img src="images/Hamburger-Menu.png" alt="mobile menu"/>
+			</div>
+			<div class="responsiveMenu">
+				<ul>
+					<li><a href="about.html">ABOUT</a></li>
+					<li><a href="help.html">HELP</a></li>
+					<li><a href="contact.html">CONTACT</a></li>
+				</ul>
+			</div>
+		</div>
 		<ul class="menu">
 			<li><a href="about.html">ABOUT</a></li>
 			<li><a href="help.html">HELP</a></li>
@@ -18,30 +30,33 @@
 	</nav>
 	<main id="console">
 		<div class="logoLockup">
-			<img src="##" />
+			<img src="images/Dispatch-Logo.png" alt="Dispatch"/>
 			<p>DISPATCH</p>
-		</div>
-		<div class="buttonClient">
-			<p>CLIENT</p>
 		</div>
 		<div class="viewscreen">
 			<div class="map">
+				<iframe src="https://www.google.com/maps/embed?pb=!1m23!1m12!1m3!1d3446.3635125379005!2d-97.77253960000003!3d30.25522220000001!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!4m8!3e6!4m0!4m5!1s0x8644b52642357455%3A0x1564577f6768eddf!2s2009+Wright+St%2C+Austin%2C+TX+78704!3m2!1d30.2552222!2d-97.7725396!5e0!3m2!1sen!2sus!4v1443309325680"></iframe>
 			</div>
 			<div class="trackingFeed">
 			</div>
 		</div>
-		<div class="buttonCourier">
-			<p>COURIER</p>
+		<div class="buttons">
+			<div class="buttonClient">
+				<p>BUSINESS</p>
+			</div>
+			<div class="buttonCourier">
+				<p>COURIER</p>
+			</div>
 		</div>
 	</main>
 	<footer>
 		<div class="address">
-			<p>3601 South Congress Avenue, Austin, TX</p>
-			<div class="socialLinks">
-				<img src="##" />
-				<img src="##" />
-				<img src="##" />
-			</div>
+			<p>3601 South Congress Ave, Austin, TX</p>
+		</div>
+		<div id="linksSocial">
+			<img src="images/Facebook.png" alt="Facebook"/>
+			<img src="images/Twitter.png" alt="Twitter"/>
+			<img src="images/Instagram.png" alt="Instagram"/>
 		</div>
 	</footer>
 <section>
