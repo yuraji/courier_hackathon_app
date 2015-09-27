@@ -12681,13 +12681,46 @@ var JobsCollection = require('./collections/jobsCollection.js');
 var JobsView = require('./views/jobsView.js');
 var addressView = require('./views/addressView.js');
 var jobSubmitView = require('./views/jobSubmitView.js');
+var jobCollection = new JobsCollection();
 $(document).ready(function () {
 
-  setInterval(function () {
-    new JobsView();
-    // new addressView();
-  }, 4000);
-  new jobSubmitView();
+  $('#jobSubmit').submit(function (e) {
+    e.preventDefault();
+    console.log($('#businessName').val());
+    $.post("https://dispatch-atx.herokuapp.com/jobs", {
+      business_name: $('#businessName').val(),
+      location: $('#location').val(),
+      job_description: $('#jobDescription').val(),
+      phone: $('#phone').val()
+    }).done(function (res) {
+      jobCollection.add(res);
+    });
+  });
+  // $.ajax({
+  //    type: "POST",
+  //    url: "https://dispatch-atx.herokuapp.com/jobs",
+  //    data: {
+  //        business_name: $('#businessName').val(),
+  //        location: $('#location').val(),
+  //        job_description: $('#jobDescription').val(),
+  //        phone: $('#phone'),
+  //    },
+  //    success: function(res){
+  //      console.log(res);
+  //    },
+  //    dataType: "json"
+  //  });
+
+  jobCollection.fetch();
+  jobCollection.on("add", function (model) {
+    var jobView = new JobsView({ model: model });
+    $("#jobs").append(jobView.$el);
+  });
+  //new JobsView();
+  // setInterval(function(){
+  //   new JobsView();
+  //   // new addressView();
+  // },4000);
 });
 
 },{"./collections/jobsCollection.js":4,"./views/addressView.js":7,"./views/jobSubmitView.js":8,"./views/jobsView.js":9,"backbone":1,"backbone/node_modules/underscore":2,"jquery":3}],6:[function(require,module,exports){
@@ -12766,30 +12799,21 @@ var jobsModel = require('../models/jobsModel.js');
 
 module.exports = Backbone.View.extend({
 
-    el: $('#jobSubmit'),
-    initialize: function initialize(options) {
-        this.model = new jobsModel();
+    // initialize: function(options) {
+    //     this.model = new jobsModel();
 
-        var that = this;
-        console.log(this.el);
-        this.$el.submit(function (e) {
-            e.preventDefault();
-            that.model.save({
-                business_name: $('#businessName').val(),
-                location: $('#location').val(),
-                job_description: $('#jobDescription'),
-                phone: $('#phone')
-            });
-        });
-    },
-    render: function render() {
-        // var data = this.collection.toJSON();
-        var that = this;
-        this.collection.each(function (model) {
-            var html = that.template(model.toJSON());
-            that.$el.append(html);
-        });
-    }
+    //     var that = this;
+    //     console.log(this.el);       
+    // },
+    // render: function() {
+    //     // var data = this.collection.toJSON();
+    //     var that = this;
+    //     this.collection.each(function(model) {
+    //         var html = that.template(model.toJSON());
+    //         that.$el.append(html);
+    //     });
+    // }
+
 });
 
 },{"../models/jobsModel.js":6,"backbone":1,"backbone/node_modules/underscore":2,"jquery":3}],9:[function(require,module,exports){
@@ -12798,44 +12822,21 @@ module.exports = Backbone.View.extend({
 var Backbone = require('backbone');
 var $ = require('jquery');
 var _ = require('backbone/node_modules/underscore');
-var JobsCollection = require('../collections/jobsCollection.js');
-var templateHTML = "<div><span><%= business_name %></span><span><%= location %></span><span><%= phone %></span><button>View Job</button></div>";
+var templateHTML = "<div><span><%= business_name %></span><span><%= location %></span><span><%= phone %><span><button>View Job</button></div>";
 module.exports = Backbone.View.extend({
-
+	tagName: "section",
 	template: _.template(templateHTML),
-
-	el: $('#jobs'),
-
 	initialize: function initialize(options) {
-		this.collection = new JobsCollection();
-
-		// save view context
-		var that = this;
-
-		this.collection.fetch({
-			success: function success(collection, response, options) {
-
-				that.render();
-			},
-			error: function error() {
-				alert("booboo");
-			}
-		});
+		this.render();
 	},
-
 	render: function render() {
-		this.$el.html("");
-		// var data = this.collection.toJSON();
-		var that = this;
-		this.collection.each(function (model) {
-			var html = that.template(model.toJSON());
-			that.$el.append(html);
-		});
+		var html = this.template(this.model.toJSON());
+		this.$el.append(html);
+		return this;
 	}
-
 });
 
-},{"../collections/jobsCollection.js":4,"backbone":1,"backbone/node_modules/underscore":2,"jquery":3}]},{},[5])
+},{"backbone":1,"backbone/node_modules/underscore":2,"jquery":3}]},{},[5])
 
 
 //# sourceMappingURL=bundle.js.map
